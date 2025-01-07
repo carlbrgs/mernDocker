@@ -14,13 +14,17 @@ services:
     networks:
       - mon-network
 
-  mongo:
-    image: mongo:latest
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    networks:
-      - mon-network
+  mongo-express:
+  image: mongo-express:latest
+  container_name: my-mongo-express
+  ports:
+    - '8081:8081'
+  environment:
+    - ME_CONFIG_BASICAUTH_USERNAME=user
+    - ME_CONFIG_BASICAUTH_PASSWORD=user
+    - ME_CONFIG_MONGODB_SERVER=mongodb
+  depends_on:
+    - mongodb
 
 networks:
   mon-network
